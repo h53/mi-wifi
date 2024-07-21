@@ -1,15 +1,12 @@
 #!/bin/bash
 
-param_index=1
+stok=$0
+passwd=$1
 
-if [[ ! $0 =~ "shell.sh" ]]
-then
-  param_index=0
+if [[  $0 =~ "shell.sh" ]]; then
+  stok=$1
+  passwd=$2
 fi
-
-stok=${!param_index}
-next_index=$((param_index + 1))
-passwd=${!next_index}
 
 if [ -z $stok ]; then
   echo "Usage: ./shell.sh <stok> [password]"
@@ -19,7 +16,6 @@ fi
 if [ -z $passwd ]; then
   echo "set root password default to admin"
 fi
-
 
 passwd=${passwd:=admin} # default password is admin
 
