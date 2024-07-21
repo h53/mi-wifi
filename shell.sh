@@ -2,7 +2,7 @@
 
 param_index=1
 
-if [[ $1 =~ "shell.sh" ]]
+if [[ ! $0 =~ "shell.sh" ]]
 then
   param_index=0
 fi
