@@ -1,16 +1,25 @@
 #!/bin/bash
 
-if [ -z "$1" ]; then
-  echo "Usage: $0 <stok> [password]"
+param_index=1
+
+if [[ $1 =~ "shell.sh" ]]
+then
+  param_index=0
+fi
+
+stok=${!param_index}
+next_index=$((param_index + 1))
+passwd=${!next_index}
+
+if [ -z $stok ]; then
+  echo "Usage: ./shell.sh <stok> [password]"
   exit 1
 fi
 
-if [ -z "$2" ]; then
+if [ -z $passwd ]; then
   echo "set root password default to admin"
 fi
 
-stok=$1
-passwd=$2
 
 passwd=${passwd:=admin} # default password is admin
 
@@ -58,3 +67,5 @@ EOF
 chmod +x /tmp/mi-wifi/ssh.exp
 
 expect /tmp/mi-wifi/ssh.exp $passwd
+
+rm /tmp/mi-wifi/ssh.exp
