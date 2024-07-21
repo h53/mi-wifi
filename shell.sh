@@ -1,5 +1,14 @@
 #!/bin/bash
 
+if [ -z "$1" ]; then
+  echo "Usage: $0 <stok> [password]"
+  exit 1
+fi
+
+if [ -z "$2" ]; then
+  echo "set root password default to admin"
+fi
+
 stok=$1
 passwd=$2
 
@@ -32,4 +41,20 @@ else
   exit 1
 fi
 
-./ssh.sh $passwd
+mkdir -p /tmp/mi-wifi
+cat << 'EOF' > /tmp/mi-wifi/ssh.exp
+#!/usr/bin/expect
+set passwd [ lindex $argv 0 ]
+
+set timeout 10 
+spawn ssh -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa root@192.168.31.1
+expect {
+  "yes/no" { send "yes\n"; exp_continue }
+  "password:" { send "$passwd\n" }
+}
+interact
+EOF
+
+chmod +x /tmp/mi-wifi/ssh.exp
+
+expect /tmp/mi-wifi/ssh.exp $passwd
