@@ -64,4 +64,4 @@ chmod +x /tmp/mi-wifi/ssh.exp
 
 expect /tmp/mi-wifi/ssh.exp $passwd
 
-rm /tmp/mi-wifi/ssh.exp
+rm -rf /tmp/mi-wifi

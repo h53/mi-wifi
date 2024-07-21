@@ -1,6 +1,10 @@
 ```
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/h53/mi-wifi/main/shell.sh)" <stok> [password]
 ```
+cdn
+```
+bash -c "$(curl -fsSL https://mi-wifi.pages.dev/shell.sh)" <stok> [password]
+```
 
 example
 ```
